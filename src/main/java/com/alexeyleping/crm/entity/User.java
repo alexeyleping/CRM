@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table
-public class Customer {
+public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,11 +14,11 @@ public class Customer {
     @Column(name = "name")
     String name;
 
-    @Column(name = "dateOdCreationCustomer")
-    String dateOdCreationCustomer;
+    @Column(name = "dateOdCreationUser")
+    String dateOdCreationUser;
 
-    @Column(name = "dateOfChangeCustomer")
-    String dateOfChangeCustomer;
+    @Column(name = "dateOfChangeUser")
+    String dateOfChangeUser;
 
     @Column
     String emailAddress;
@@ -35,7 +35,7 @@ public class Customer {
     @Column
     String phoneNumber;
 
-    public Customer() {
+    public User() {
     }
 
     public Long getId() {
@@ -54,20 +54,20 @@ public class Customer {
         this.name = name;
     }
 
-    public String getDateOdCreationCustomer() {
-        return dateOdCreationCustomer;
+    public String getDateOdCreationUser() {
+        return dateOdCreationUser;
     }
 
-    public void setDateOdCreationCustomer(String dateOdCreationCustomer) {
-        this.dateOdCreationCustomer = dateOdCreationCustomer;
+    public void setDateOdCreationUser(String dateOdCreationUser) {
+        this.dateOdCreationUser = dateOdCreationUser;
     }
 
-    public String getDateOfChangeCustomer() {
-        return dateOfChangeCustomer;
+    public String getDateOfChangeUser() {
+        return dateOfChangeUser;
     }
 
-    public void setDateOfChangeCustomer(String dateOfChangeCustomer) {
-        this.dateOfChangeCustomer = dateOfChangeCustomer;
+    public void setDateOfChangeUser(String dateOfChangeUser) {
+        this.dateOfChangeUser = dateOfChangeUser;
     }
 
     public String getEmailAddress() {
@@ -114,22 +114,22 @@ public class Customer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(dateOdCreationCustomer, customer.dateOdCreationCustomer) && Objects.equals(dateOfChangeCustomer, customer.dateOfChangeCustomer) && Objects.equals(emailAddress, customer.emailAddress) && Objects.equals(address, customer.address) && Objects.equals(city, customer.city) && Objects.equals(country, customer.country) && Objects.equals(phoneNumber, customer.phoneNumber);
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(dateOdCreationUser, user.dateOdCreationUser) && Objects.equals(dateOfChangeUser, user.dateOfChangeUser) && Objects.equals(emailAddress, user.emailAddress) && Objects.equals(address, user.address) && Objects.equals(city, user.city) && Objects.equals(country, user.country) && Objects.equals(phoneNumber, user.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, dateOdCreationCustomer, dateOfChangeCustomer, emailAddress, address, city, country, phoneNumber);
+        return Objects.hash(id, name, dateOdCreationUser, dateOfChangeUser, emailAddress, address, city, country, phoneNumber);
     }
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", dateOdCreationCustomer='" + dateOdCreationCustomer + '\'' +
-                ", dateOfChangeCustomer='" + dateOfChangeCustomer + '\'' +
+                ", dateOdCreationUser='" + dateOdCreationUser + '\'' +
+                ", dateOfChangeUser='" + dateOfChangeUser + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
