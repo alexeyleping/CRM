@@ -2,6 +2,7 @@ package com.alexeyleping.crm.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 @Table
@@ -36,6 +37,9 @@ public class Customer {
     String phoneNumber;
 
     public Customer() {
+    }
+
+    public Customer(Optional<Customer> id){
     }
 
     public Long getId() {

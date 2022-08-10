@@ -7,16 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Service
 public class CustomerService {
-    private final CustomerRepository customerRepository;
-    @Autowired
+    private  final CustomerRepository customerRepository;
+
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
-    public Page<Customer> getCustomersForDatatable(String queryString, Pageable pageable) {
-        CustomerDataBaseFilter customerDatatableFilter = new CustomerDataBaseFilter(queryString);
-        return customerRepository.findAll(customerDatatableFilter, pageable);
+
+    @GetMapping
+    public List<Customer> getAllCustomer(){
+        return customerRepository.findAll();
     }
 }
