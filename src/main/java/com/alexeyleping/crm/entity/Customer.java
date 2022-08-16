@@ -8,6 +8,7 @@ import java.util.Optional;
 @Table(name = "customer")
 public class Customer {
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
@@ -20,19 +21,19 @@ public class Customer {
     @Column(name = "dateOfChangeCustomer")
     String dateOfChangeCustomer;
 
-    @Column
+    @Column(name = "emailAddress")
     String emailAddress;
 
-    @Column
+    @Column(name = "address")
     String address;
 
-    @Column
+    @Column(name = "city")
     String city;
 
-    @Column
+    @Column(name = "country")
     String country;
 
-    @Column
+    @Column(name = "phoneNumber")
     String phoneNumber;
 
     public Customer() {

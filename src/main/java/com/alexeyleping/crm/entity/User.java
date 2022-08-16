@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -19,19 +19,19 @@ public class User {
     @Column(name = "dateOfChangeUser")
     String dateOfChangeUser;
 
-    @Column
+    @Column(name = "emailAddress")
     String emailAddress;
 
-    @Column
+    @Column(name = "address")
     String address;
 
-    @Column
+    @Column(name = "city")
     String city;
 
-    @Column
+    @Column(name = "country")
     String country;
 
-    @Column
+    @Column(name = "phoneNumber")
     String phoneNumber;
 
     public User() {
