@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/")
+@RestController
 public class CustomerWebController {
     private  final CustomerService customerService;
 
@@ -20,10 +19,14 @@ public class CustomerWebController {
     }
 
     @GetMapping("/")
-    public String greeting(Model model) {
-        Customer customer = new Customer();
-        model.addAttribute("customers", customerService.getAllCustomer());
-        model.addAttribute("customer", customer);
-        return "index";
+    public String welcome() {
+        return "Hello!";
     }
+
+    @GetMapping("/show")
+    public List<Customer> showCustomerList() {
+        return customerService.getAllCustomer();
+    }
+
+
 }

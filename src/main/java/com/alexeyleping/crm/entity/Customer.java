@@ -5,11 +5,10 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Entity
-@Table
+@Table(name = "customer")
 public class Customer {
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
     @Column(name = "name")
