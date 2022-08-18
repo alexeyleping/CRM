@@ -1,5 +1,8 @@
 package com.alexeyleping.crm.entity;
 
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.hql.internal.ast.tree.RestrictableStatement;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -8,6 +11,7 @@ import java.util.Objects;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @OneToMany(cascade = CascadeType.ALL)
     Long id;
 
     @Column(name = "name")
@@ -33,6 +37,9 @@ public class User {
 
     @Column(name = "phoneNumber")
     String phoneNumber;
+
+    @Column(name = "role")
+    String role;
 
     public User() {
     }

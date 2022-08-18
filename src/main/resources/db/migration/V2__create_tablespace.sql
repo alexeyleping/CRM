@@ -1,4 +1,26 @@
-ALTER TABLE users
-    RENAME COLUMN dateOdCreationCustomer TO dateOdCreationUser;
-ALTER TABLE users
-    RENAME COLUMN dateOfChangeCustomer TO dateOfChangeUser;
+CREATE TABLE customer
+(
+    id SERIAL PRIMARY KEY,
+    name text,
+    dateOdCreationCustomer text,
+    dateOfChangeCustomer text,
+    emailAddress text,
+    address text,
+    city text,
+    country text,
+    phoneNumber text
+);
+CREATE TABLE users
+(
+    id SERIAL PRIMARY KEY,
+    name text,
+    dateOdCreationCustomer text,
+    dateOfChangeCustomer text,
+    emailAddress text,
+    address text,
+    city text,
+    country text,
+    phoneNumber text
+);
+
+
