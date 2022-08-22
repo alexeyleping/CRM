@@ -8,7 +8,7 @@ import java.util.Optional;
 @Table(name = "customer")
 public class Customer {
     @Id
-    @Column
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 

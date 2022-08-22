@@ -4,6 +4,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.hql.internal.ast.tree.RestrictableStatement;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,7 +12,6 @@ import java.util.Objects;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @OneToMany(cascade = CascadeType.ALL)
     Long id;
 
     @Column(name = "name")
@@ -40,6 +40,10 @@ public class User {
 
     @Column(name = "role")
     String role;
+
+    @OneToMany
+    @JoinColumn(name = "userid", referencedColumnName = "id")
+    private List<Application> applications;
 
     public User() {
     }

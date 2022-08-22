@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name = "applications")
 public class Application {
     @Id
-    @Column
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
@@ -32,6 +32,9 @@ public class Application {
 
     @Column(name = "price")
     float price;
+
+    @Column(name = "userid")
+    Long userId;
 
     public Application() {
     }
