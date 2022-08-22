@@ -2,20 +2,18 @@ package com.alexeyleping.crm.controllers;
 
 
 import com.alexeyleping.crm.entity.Customer;
-import com.alexeyleping.crm.repository.CustomerRepository;
-import com.alexeyleping.crm.service.CustomerService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import com.alexeyleping.crm.entity.User;
+import com.alexeyleping.crm.service.WebService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class CustomerWebController {
-    private  final CustomerService customerService;
+    private  final WebService webService;
 
-    public CustomerWebController(CustomerService customerService) {
-        this.customerService = customerService;
+    public CustomerWebController(WebService webService) {
+        this.webService = webService;
     }
 
     @GetMapping("/")
@@ -23,10 +21,14 @@ public class CustomerWebController {
         return "Hello!";
     }
 
-    @GetMapping("/show")
+    @GetMapping("/showCustomer")
     public List<Customer> showCustomerList() {
-        return customerService.getAllCustomer();
+        return webService.getAllCustomer();
     }
 
+    @GetMapping("/showUsers")
+    public List<User> showUsersList() {
+        return webService.getAllUser();
+    }
 
 }
