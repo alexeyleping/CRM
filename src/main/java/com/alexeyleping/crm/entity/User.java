@@ -12,7 +12,7 @@ import java.util.Objects;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    Long id;
+    int id;
 
     @Column(name = "name")
     String name;
@@ -42,17 +42,16 @@ public class User {
     String role;
 
     @OneToMany
-    @JoinColumn(name = "userid", referencedColumnName = "id")
     private List<Application> applications;
 
     public User() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

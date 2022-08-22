@@ -10,7 +10,7 @@ public class Customer {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    Long id;
+    int id;
 
     @Column(name = "name")
     String name;
@@ -39,14 +39,11 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Optional<Customer> id){
-    }
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
