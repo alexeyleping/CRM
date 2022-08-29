@@ -31,4 +31,7 @@ public class CustomerWebController {
         return webService.getAllUser();
     }
 
+    @GetMapping("/createApplication{id, owner}")
+    public void createApplication() {}
+
 }

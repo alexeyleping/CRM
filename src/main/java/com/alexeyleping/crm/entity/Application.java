@@ -19,7 +19,7 @@ public class Application {
     String owner;
 
     @Column(name = "applicationType")
-    String applicationType;
+    Type applicationType;
 
     @Column(name = "description")
     String description;
@@ -37,6 +37,22 @@ public class Application {
     Long userId;
 
     public Application() {
+    }
+
+    public Application(int id, String creator, String owner) {
+        this.id = id;
+        this.creator = creator;
+        this.owner = owner;
+        this.applicationType = Type.valueOf("OPEN");
+        this.dateCreated = getDateToday();
+        this.dateChanged = getDateToday();
+        this.price = 0;
+    }
+
+    enum Type{
+        OPEN,
+        CLOSED,
+        INWORK
     }
 
     public int getId() {
@@ -63,11 +79,11 @@ public class Application {
         this.owner = owner;
     }
 
-    public String getApplicationType() {
+    public Type getApplicationType() {
         return applicationType;
     }
 
-    public void setApplicationType(String applicationType) {
+    public void setApplicationType(Type applicationType) {
         this.applicationType = applicationType;
     }
 
@@ -130,7 +146,10 @@ public class Application {
                 '}';
     }
 
-
+    protected Date getDateToday(){
+        Date date = new Date();
+        return date;
+    }
 
 
 
