@@ -33,9 +33,6 @@ public class Application {
     @Column(name = "price")
     float price;
 
-    @Column(name = "userid")
-    Long userId;
-
     public Application() {
     }
 

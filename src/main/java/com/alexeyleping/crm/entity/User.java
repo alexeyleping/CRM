@@ -41,8 +41,6 @@ public class User {
     @Column(name = "role")
     String role;
 
-    @OneToMany
-    private List<Application> applications;
 
     public User() {
     }
