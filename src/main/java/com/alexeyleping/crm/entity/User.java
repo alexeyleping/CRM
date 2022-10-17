@@ -17,13 +17,13 @@ public class User {
     @Column(name = "name")
     String name;
 
-    @Column(name = "dateOdCreationUser")
-    String dateOdCreationUser;
+    @Column(name = "dateOfCreationUser")
+    String dateOfCreationUser;
 
     @Column(name = "dateOfChangeUser")
     String dateOfChangeUser;
 
-    @Column(name = "emailAddress")
+    @Column(name = "email")
     String emailAddress;
 
     @Column(name = "address")
@@ -62,11 +62,11 @@ public class User {
     }
 
     public String getDateOdCreationUser() {
-        return dateOdCreationUser;
+        return dateOfCreationUser;
     }
 
     public void setDateOdCreationUser(String dateOdCreationUser) {
-        this.dateOdCreationUser = dateOdCreationUser;
+        this.dateOfCreationUser = dateOdCreationUser;
     }
 
     public String getDateOfChangeUser() {
@@ -122,12 +122,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(dateOdCreationUser, user.dateOdCreationUser) && Objects.equals(dateOfChangeUser, user.dateOfChangeUser) && Objects.equals(emailAddress, user.emailAddress) && Objects.equals(address, user.address) && Objects.equals(city, user.city) && Objects.equals(country, user.country) && Objects.equals(phoneNumber, user.phoneNumber);
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(dateOfCreationUser, user.dateOfCreationUser) && Objects.equals(dateOfChangeUser, user.dateOfChangeUser) && Objects.equals(emailAddress, user.emailAddress) && Objects.equals(address, user.address) && Objects.equals(city, user.city) && Objects.equals(country, user.country) && Objects.equals(phoneNumber, user.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, dateOdCreationUser, dateOfChangeUser, emailAddress, address, city, country, phoneNumber);
+        return Objects.hash(id, name, dateOfCreationUser, dateOfChangeUser, emailAddress, address, city, country, phoneNumber, role);
     }
 
     @Override
@@ -135,7 +135,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", dateOdCreationUser='" + dateOdCreationUser + '\'' +
+                ", dateOdCreationUser='" + dateOfCreationUser + '\'' +
                 ", dateOfChangeUser='" + dateOfChangeUser + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
                 ", address='" + address + '\'' +

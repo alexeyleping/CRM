@@ -1,11 +1,11 @@
 package com.alexeyleping.crm.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
-import java.util.Optional;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 public class Customer {
     @Id
     @Column(name = "id")
@@ -15,14 +15,14 @@ public class Customer {
     @Column(name = "name")
     String name;
 
-    @Column(name = "dateOdCreationCustomer")
-    String dateOdCreationCustomer;
+    @Column(name = "dateOfCreationCustomer")
+    Date dateOfCreationCustomer;
 
     @Column(name = "dateOfChangeCustomer")
-    String dateOfChangeCustomer;
+    Date dateOfChangeCustomer;
 
-    @Column(name = "emailAddress")
-    String emailAddress;
+    @Column(name = "email")
+    String email;
 
     @Column(name = "address")
     String address;
@@ -55,28 +55,29 @@ public class Customer {
         this.name = name;
     }
 
-    public String getDateOdCreationCustomer() {
-        return dateOdCreationCustomer;
+
+    public Date getDateOfCreationCustomer() {
+        return dateOfCreationCustomer;
     }
 
-    public void setDateOdCreationCustomer(String dateOdCreationCustomer) {
-        this.dateOdCreationCustomer = dateOdCreationCustomer;
+    public void setDateOfCreationCustomer(Date dateOfCreationCustomer) {
+        this.dateOfCreationCustomer = dateOfCreationCustomer;
     }
 
-    public String getDateOfChangeCustomer() {
+    public Date getDateOfChangeCustomer() {
         return dateOfChangeCustomer;
     }
 
-    public void setDateOfChangeCustomer(String dateOfChangeCustomer) {
+    public void setDateOfChangeCustomer(Date dateOfChangeCustomer) {
         this.dateOfChangeCustomer = dateOfChangeCustomer;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setEmail(String emailAddress) {
+        this.email = email;
     }
 
     public String getAddress() {
@@ -111,31 +112,6 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(dateOdCreationCustomer, customer.dateOdCreationCustomer) && Objects.equals(dateOfChangeCustomer, customer.dateOfChangeCustomer) && Objects.equals(emailAddress, customer.emailAddress) && Objects.equals(address, customer.address) && Objects.equals(city, customer.city) && Objects.equals(country, customer.country) && Objects.equals(phoneNumber, customer.phoneNumber);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, dateOdCreationCustomer, dateOfChangeCustomer, emailAddress, address, city, country, phoneNumber);
-    }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", dateOdCreationCustomer='" + dateOdCreationCustomer + '\'' +
-                ", dateOfChangeCustomer='" + dateOfChangeCustomer + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", country='" + country + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
-    }
 }
