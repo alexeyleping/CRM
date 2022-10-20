@@ -17,10 +17,9 @@ import java.util.Optional;
 @Service
 public class CustomerService {
     private  final CustomerRepository customerRepository;
-    private  final UserRepository userRepository;
-    public CustomerService(CustomerRepository customerRepository, UserRepository userRepository) {
+
+    public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
-        this.userRepository = userRepository;
     }
     public ReturnCustomerDto getCustomer(Long id){
         Optional<Customer> customer = customerRepository.findById(id);
@@ -66,8 +65,4 @@ public class CustomerService {
         customerRepository.deleteById(id);
         return "OK. OBJECT DELETE.";
     }
-
-
-
-
 }

@@ -18,11 +18,6 @@ public class CustomerController {
         this.customerService = webService;
     }
 
-    @GetMapping("/")
-    public String welcome() {
-        return "Hello!";
-    }
-
     @GetMapping("/getCustomerId{id}")
     public ReturnCustomerDto getCustomer(@PathVariable Long id) {
         return customerService.getCustomer(id);
@@ -33,11 +28,12 @@ public class CustomerController {
         return  customerService.createCustomer(customerDto);
     }
     @PutMapping
-    public void updateCustomer(@RequestBody CustomerDto customerDto) {
-        customerService.updateCustomer(customerDto);
+    public String updateCustomer(@RequestBody CustomerDto customerDto) {
+        return customerService.updateCustomer(customerDto);
     }
+
     @DeleteMapping("/{id}")
-    public void deleteCustomer(@PathVariable Long id) {
-        customerService.deleteCustomer(id);
+    public String deleteCustomer(@PathVariable Long id) {
+        return customerService.deleteCustomer(id);
     }
 }

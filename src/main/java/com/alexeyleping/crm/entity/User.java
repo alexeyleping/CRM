@@ -4,6 +4,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.hql.internal.ast.tree.RestrictableStatement;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,13 +19,13 @@ public class User {
     String name;
 
     @Column(name = "dateOfCreationUser")
-    String dateOfCreationUser;
+    Date dateOfCreationUser;
 
     @Column(name = "dateOfChangeUser")
-    String dateOfChangeUser;
+    Date dateOfChangeUser;
 
     @Column(name = "email")
-    String emailAddress;
+    String email;
 
     @Column(name = "address")
     String address;
@@ -61,28 +62,28 @@ public class User {
         this.name = name;
     }
 
-    public String getDateOdCreationUser() {
+    public Date getDateOfCreationUser() {
         return dateOfCreationUser;
     }
 
-    public void setDateOdCreationUser(String dateOdCreationUser) {
-        this.dateOfCreationUser = dateOdCreationUser;
+    public void setDateOfCreationUser(Date dateOfCreationUser) {
+        this.dateOfCreationUser = dateOfCreationUser;
     }
 
-    public String getDateOfChangeUser() {
+    public Date getDateOfChangeUser() {
         return dateOfChangeUser;
     }
 
-    public void setDateOfChangeUser(String dateOfChangeUser) {
+    public void setDateOfChangeUser(Date dateOfChangeUser) {
         this.dateOfChangeUser = dateOfChangeUser;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setEmail(String emailAddress) {
+        this.email = email;
     }
 
     public String getAddress() {
@@ -122,12 +123,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(dateOfCreationUser, user.dateOfCreationUser) && Objects.equals(dateOfChangeUser, user.dateOfChangeUser) && Objects.equals(emailAddress, user.emailAddress) && Objects.equals(address, user.address) && Objects.equals(city, user.city) && Objects.equals(country, user.country) && Objects.equals(phoneNumber, user.phoneNumber);
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(dateOfCreationUser, user.dateOfCreationUser) && Objects.equals(dateOfChangeUser, user.dateOfChangeUser) && Objects.equals(email, user.email) && Objects.equals(address, user.address) && Objects.equals(city, user.city) && Objects.equals(country, user.country) && Objects.equals(phoneNumber, user.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, dateOfCreationUser, dateOfChangeUser, emailAddress, address, city, country, phoneNumber, role);
+        return Objects.hash(id, name, dateOfCreationUser, dateOfChangeUser, email, address, city, country, phoneNumber, role);
     }
 
     @Override
@@ -137,7 +138,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", dateOdCreationUser='" + dateOfCreationUser + '\'' +
                 ", dateOfChangeUser='" + dateOfChangeUser + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
+                ", emailAddress='" + email+ '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
