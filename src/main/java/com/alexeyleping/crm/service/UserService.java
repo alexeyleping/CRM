@@ -4,11 +4,13 @@ import com.alexeyleping.crm.controllers.dto.ReturnUserDto;
 import com.alexeyleping.crm.controllers.dto.UserDto;
 import com.alexeyleping.crm.entity.User;
 import com.alexeyleping.crm.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
+@Service
 public class UserService {
     private  final UserRepository userRepository;
 

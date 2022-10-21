@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
     private  final CustomerService customerService;
 
-    public CustomerController(CustomerService webService) {
-        this.customerService = webService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @GetMapping("/getCustomerId{id}")
