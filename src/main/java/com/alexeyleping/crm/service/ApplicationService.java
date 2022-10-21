@@ -4,6 +4,10 @@ import com.alexeyleping.crm.controllers.dto.ApplicationDto;
 import com.alexeyleping.crm.controllers.dto.ReturnApplicationDto;
 import com.alexeyleping.crm.entity.Application;
 import com.alexeyleping.crm.repository.ApplicationRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -64,5 +68,9 @@ public class ApplicationService {
     public String deleteApplication(Long id){
         applicationRepository.deleteById(id);
         return "OK. OBJECT DELETE.";
+    }
+
+    public Page<Application> getAll(Integer limit, Integer page) {
+        return applicationRepository.findAll(PageRequest.of(page, limit));
     }
 }
