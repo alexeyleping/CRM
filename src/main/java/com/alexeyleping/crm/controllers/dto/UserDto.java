@@ -1,6 +1,5 @@
 package com.alexeyleping.crm.controllers.dto;
 
-import javax.persistence.Column;
 import java.util.Date;
 
 public class UserDto {

@@ -1,10 +1,7 @@
 package com.alexeyleping.crm.service;
 
-import com.alexeyleping.crm.controllers.dto.CustomerDto;
-import com.alexeyleping.crm.controllers.dto.ReturnCustomerDto;
 import com.alexeyleping.crm.controllers.dto.ReturnUserDto;
 import com.alexeyleping.crm.controllers.dto.UserDto;
-import com.alexeyleping.crm.entity.Customer;
 import com.alexeyleping.crm.entity.User;
 import com.alexeyleping.crm.repository.UserRepository;
 

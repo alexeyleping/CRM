@@ -2,8 +2,8 @@ CREATE TABLE customers
 (
     id SERIAL PRIMARY KEY,
     name text,
-    dateOfCreationCustomer text,
-    dateOfChangeCustomer text,
+    dateOfCreationCustomer date,
+    dateOfChangeCustomer date,
     email text,
     address text,
     city text,
@@ -14,8 +14,8 @@ CREATE TABLE users
 (
     id SERIAL PRIMARY KEY,
     name text,
-    dateOfCreationUser text,
-    dateOfChangeUser text,
+    dateOfCreationUser date,
+    dateOfChangeUser date,
     email text,
     address text,
     city text,

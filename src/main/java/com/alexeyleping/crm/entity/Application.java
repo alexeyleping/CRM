@@ -10,7 +10,7 @@ public class Application {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    int id;
+    Long id;
 
     @Column(name = "creator")
     String creator;
@@ -19,7 +19,8 @@ public class Application {
     String owner;
 
     @Column(name = "applicationType")
-    Type applicationType;
+    @Enumerated(EnumType.STRING)
+    ApplicationStatus applicationType;
 
     @Column(name = "description")
     String description;
@@ -36,27 +37,22 @@ public class Application {
     public Application() {
     }
 
-    public Application(int id, String creator, String owner) {
+    public Application(Long id, String creator, String owner) {
         this.id = id;
         this.creator = creator;
         this.owner = owner;
-        this.applicationType = Type.valueOf("OPEN");
+        this.applicationType = applicationType.valueOf("OPEN");
         this.dateCreated = getDateToday();
         this.dateChanged = getDateToday();
         this.price = 0;
     }
 
-    enum Type{
-        OPEN,
-        CLOSED,
-        INWORK
-    }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -76,11 +72,11 @@ public class Application {
         this.owner = owner;
     }
 
-    public Type getApplicationType() {
+    public ApplicationStatus getApplicationType() {
         return applicationType;
     }
 
-    public void setApplicationType(Type applicationType) {
+    public void setApplicationType(ApplicationStatus applicationType) {
         this.applicationType = applicationType;
     }
 

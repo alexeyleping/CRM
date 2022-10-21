@@ -3,11 +3,8 @@ package com.alexeyleping.crm.controllers;
 
 import com.alexeyleping.crm.controllers.dto.CustomerDto;
 import com.alexeyleping.crm.controllers.dto.ReturnCustomerDto;
-import com.alexeyleping.crm.entity.Customer;
 import com.alexeyleping.crm.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/customer")

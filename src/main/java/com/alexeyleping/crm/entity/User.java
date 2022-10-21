@@ -1,11 +1,7 @@
 package com.alexeyleping.crm.entity;
 
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.hql.internal.ast.tree.RestrictableStatement;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 @Entity

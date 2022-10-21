@@ -4,14 +4,10 @@ import com.alexeyleping.crm.controllers.dto.CustomerDto;
 import com.alexeyleping.crm.controllers.dto.ReturnCustomerDto;
 import com.alexeyleping.crm.entity.Customer;
 import com.alexeyleping.crm.repository.CustomerRepository;
-import com.alexeyleping.crm.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Service
