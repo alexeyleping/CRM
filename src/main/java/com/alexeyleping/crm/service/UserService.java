@@ -2,16 +2,18 @@ package com.alexeyleping.crm.service;
 
 import com.alexeyleping.crm.controllers.dto.ReturnUserDto;
 import com.alexeyleping.crm.controllers.dto.UserDto;
-import com.alexeyleping.crm.entity.User;
+import com.alexeyleping.crm.entity.AppUser;
 import com.alexeyleping.crm.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import javax.transaction.Transactional;
+import java.util.*;
 
-@Service
-public class UserService {
+@Service @Transactional
+public class UserService implements UserDetailsService {
     private  final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -19,42 +21,42 @@ public class UserService {
     }
 
     public ReturnUserDto getUser(Long id){
-        Optional<User> user = userRepository.findById(id);
+        Optional<AppUser> user = userRepository.findById(id);
         ReturnUserDto returnUserDto = new ReturnUserDto();
         returnUserDto.setName(user.get().getName());
         return returnUserDto;
     }
 
     public String createUser(UserDto userDto){
-        User user = new User();
-        user.setName(userDto.getName());
-        user.setAddress(userDto.getAddress());
-        user.setCity(userDto.getCity());
-        user.setCountry(userDto.getCountry());
-        user.setEmail(userDto.getEmail());
-        user.setPhoneNumber(userDto.getPhoneNumber());
+        AppUser appUser = new AppUser();
+        appUser.setName(userDto.getName());
+        appUser.setAddress(userDto.getAddress());
+        appUser.setCity(userDto.getCity());
+        appUser.setCountry(userDto.getCountry());
+        appUser.setEmail(userDto.getEmail());
+        appUser.setPhoneNumber(userDto.getPhoneNumber());
         Date timeStamp = Calendar.getInstance().getTime();
-        user.setDateOfCreationUser(timeStamp);
-        userRepository.save(user);
+        appUser.setDateOfCreationUser(timeStamp);
+        userRepository.save(appUser);
         return "200 OK";
     }
 
     public String updateUser(UserDto userDto){
-        User user = userRepository.getReferenceById(userDto.getId());
+        AppUser appUser = userRepository.getReferenceById(userDto.getId());
         if(userDto.getName() != null)
-            user.setName(userDto.getName());
+            appUser.setName(userDto.getName());
         if(userDto.getDateOfChangeUser() != null)
-            user.setDateOfChangeUser(userDto.getDateOfChangeUser());
+            appUser.setDateOfChangeUser(userDto.getDateOfChangeUser());
         if(userDto.getDateOfCreationUser() != null)
-            user.setDateOfCreationUser(userDto.getDateOfCreationUser());
+            appUser.setDateOfCreationUser(userDto.getDateOfCreationUser());
         if(userDto.getAddress() != null)
-            user.setAddress(userDto.getAddress());
+            appUser.setAddress(userDto.getAddress());
         if(userDto.getCity() != null)
-            user.setCity(userDto.getCity());
+            appUser.setCity(userDto.getCity());
         if(userDto.getCountry() != null)
-            user.setCountry(userDto.getCountry());
+            appUser.setCountry(userDto.getCountry());
         if(userDto.getPhoneNumber() != null)
-            user.setPhoneNumber(userDto.getPhoneNumber());
+            appUser.setPhoneNumber(userDto.getPhoneNumber());
         return "OK. OBJECT UPDATE.";
     }
 
@@ -62,4 +64,20 @@ public class UserService {
         userRepository.deleteById(id);
         return "OK. OBJECT DELETE.";
     }
+
+    public AppUser getByLogin(String login){
+        return userRepository.findByLogin(login);
+    }
+    public List<AppUser> getAll() {
+        return userRepository.findAll();
+    }
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        AppUser u = getByLogin(login);
+        if (Objects.isNull(u)) {
+            throw new UsernameNotFoundException(String.format("User %s is not found", login));
+        }
+        return new org.springframework.security.core.userdetails.User(u.getLogin(), u.getPassword(), true, true, true, true, new HashSet<>());
+    }
+
 }

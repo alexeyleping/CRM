@@ -9,30 +9,30 @@ import java.util.Objects;
 public class Application {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(name = "creator")
-    String creator;
+    private String creator;
 
     @Column(name = "owner")
-    String owner;
+    private String owner;
 
     @Column(name = "applicationType")
     @Enumerated(EnumType.STRING)
-    ApplicationStatus applicationType;
+    private ApplicationStatus applicationType;
 
     @Column(name = "description")
-    String description;
+    private String description;
 
     @Column(name = "dateCreated")
-    Date dateCreated;
+    private Date dateCreated;
 
     @Column(name = "dateChanged")
-    Date dateChanged;
+    private Date dateChanged;
 
     @Column(name = "price")
-    float price;
+    private float price;
 
     public Application() {
     }

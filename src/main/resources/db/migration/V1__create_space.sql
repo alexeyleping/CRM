@@ -14,6 +14,8 @@ CREATE TABLE users
 (
     id SERIAL PRIMARY KEY,
     name text,
+    login text,
+    password text,
     dateOfCreationUser date,
     dateOfChangeUser date,
     email text,

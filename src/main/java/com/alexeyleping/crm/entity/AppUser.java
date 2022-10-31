@@ -1,46 +1,94 @@
 package com.alexeyleping.crm.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class AppUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    @Column(name = "login")
+    private String login;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "name")
-    String name;
+    private String name;
 
     @Column(name = "dateOfCreationUser")
-    Date dateOfCreationUser;
+    private Date dateOfCreationUser;
 
     @Column(name = "dateOfChangeUser")
-    Date dateOfChangeUser;
+    private Date dateOfChangeUser;
 
     @Column(name = "email")
-    String email;
+    private String email;
 
     @Column(name = "address")
-    String address;
+    private String address;
 
     @Column(name = "city")
-    String city;
+    private String city;
 
     @Column(name = "country")
-    String country;
+    private String country;
 
     @Column(name = "phoneNumber")
-    String phoneNumber;
+    private String phoneNumber;
 
     @Column(name = "role")
-    String role;
+    private String role;
 
-
-    public User() {
+    public AppUser() {
     }
+
+
+
+    public AppUser(int id, String login, String password, String name, Date dateOfCreationUser, Date dateOfChangeUser, String email, String address, String city, String country, String phoneNumber, String roles) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.dateOfCreationUser = dateOfCreationUser;
+        this.dateOfChangeUser = dateOfChangeUser;
+        this.email = email;
+        this.address = address;
+        this.city = city;
+        this.country = country;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 
     public int getId() {
         return id;
@@ -118,18 +166,18 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(dateOfCreationUser, user.dateOfCreationUser) && Objects.equals(dateOfChangeUser, user.dateOfChangeUser) && Objects.equals(email, user.email) && Objects.equals(address, user.address) && Objects.equals(city, user.city) && Objects.equals(country, user.country) && Objects.equals(phoneNumber, user.phoneNumber);
+        AppUser appUser = (AppUser) o;
+        return Objects.equals(id, appUser.id) && Objects.equals(name, appUser.name) && Objects.equals(dateOfCreationUser, appUser.dateOfCreationUser) && Objects.equals(dateOfChangeUser, appUser.dateOfChangeUser) && Objects.equals(email, appUser.email) && Objects.equals(address, appUser.address) && Objects.equals(city, appUser.city) && Objects.equals(country, appUser.country) && Objects.equals(phoneNumber, appUser.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, dateOfCreationUser, dateOfChangeUser, email, address, city, country, phoneNumber, role);
+        return Objects.hash(id, name, dateOfCreationUser, dateOfChangeUser, email, address, city, country, phoneNumber);
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "AppUser{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", dateOdCreationUser='" + dateOfCreationUser + '\'' +

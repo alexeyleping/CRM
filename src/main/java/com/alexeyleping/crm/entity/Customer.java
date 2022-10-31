@@ -8,32 +8,32 @@ import java.util.Date;
 public class Customer {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     @Column(name = "name")
-    String name;
+    private String name;
 
     @Column(name = "dateOfCreationCustomer")
-    Date dateOfCreationCustomer;
+    private Date dateOfCreationCustomer;
 
     @Column(name = "dateOfChangeCustomer")
-    Date dateOfChangeCustomer;
+    private Date dateOfChangeCustomer;
 
     @Column(name = "email")
-    String email;
+    private String email;
 
     @Column(name = "address")
-    String address;
+    private String address;
 
     @Column(name = "city")
-    String city;
+    private String city;
 
     @Column(name = "country")
-    String country;
+    private String country;
 
     @Column(name = "phoneNumber")
-    String phoneNumber;
+    private String phoneNumber;
 
     public Customer() {
     }
