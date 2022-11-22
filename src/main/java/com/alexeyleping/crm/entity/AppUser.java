@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
+import static javax.persistence.FetchType.EAGER;
+
 @Entity
 @Table(name = "users")
 public class AppUser {
@@ -42,15 +44,13 @@ public class AppUser {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @Column(name = "role")
-    private String role;
+    @ManyToMany(fetch = EAGER)
+    private Collection<UserRole> roles = new ArrayList<>();
 
     public AppUser() {
     }
 
-
-
-    public AppUser(int id, String login, String password, String name, Date dateOfCreationUser, Date dateOfChangeUser, String email, String address, String city, String country, String phoneNumber, String roles) {
+    public AppUser(int id, String login, String password, String name, Date dateOfCreationUser, Date dateOfChangeUser, String email, String address, String city, String country, String phoneNumber, Collection<UserRole> roles) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -62,15 +62,16 @@ public class AppUser {
         this.city = city;
         this.country = country;
         this.phoneNumber = phoneNumber;
-        this.role = role;
+        this.roles = roles;
     }
 
-    public String getRole() {
-        return role;
+
+    public Collection<UserRole> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(Collection<UserRole> roles) {
+        this.roles = roles;
     }
 
     public String getLogin() {

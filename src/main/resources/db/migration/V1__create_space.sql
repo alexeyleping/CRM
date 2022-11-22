@@ -39,6 +39,18 @@ CREATE TABLE applications
     users_id integer references users(id),
     customers_id integer references customers(id)
 );
+CREATE TABLE userrole
+(
+    id SERIAL PRIMARY KEY,
+    name text
+);
+CREATE TABLE users_userrole
+(
+    users_id bigserial references users (id) not null,
+    userrole_id bigserial references userrole (id) not null,
+    constraint users_userrole_pkey primary key (users_id, userrole_id)
+);
+
 
 
 
