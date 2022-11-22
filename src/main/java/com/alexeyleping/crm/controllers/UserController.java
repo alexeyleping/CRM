@@ -3,6 +3,7 @@ package com.alexeyleping.crm.controllers;
 import com.alexeyleping.crm.controllers.dto.ReturnUserDto;
 import com.alexeyleping.crm.controllers.dto.UserDto;
 import com.alexeyleping.crm.entity.AppUser;
+import com.alexeyleping.crm.entity.UserRole;
 import com.alexeyleping.crm.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class UserController {
         return userService.getUser(id);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public String createUser (@RequestBody UserDto userDto){
         return  userService.createUser(userDto);
     }
@@ -43,4 +44,34 @@ public class UserController {
         return userService.getAll();
     }
 
+    @PostMapping("/role/save")
+    public void saveRole(UserRole role){
+        userService.saveRole(role);
+    }
+
+    @PostMapping("/role/addtouser")
+    public void addRoleToUser(@RequestBody RoleToUserForm form){
+        userService.addRoleToUser(form.getRoleName(), form.getLogin());
+    }
+}
+
+class RoleToUserForm{
+    private String login;
+    private String roleName;
+
+    public RoleToUserForm() {
+    }
+
+    public RoleToUserForm(String login, String roleName) {
+        this.login = login;
+        this.roleName = roleName;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
 }
