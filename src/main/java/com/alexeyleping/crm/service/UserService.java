@@ -3,10 +3,7 @@ package com.alexeyleping.crm.service;
 import com.alexeyleping.crm.controllers.dto.ReturnUserDto;
 import com.alexeyleping.crm.controllers.dto.UserDto;
 import com.alexeyleping.crm.entity.AppUser;
-import com.alexeyleping.crm.entity.UserRole;
 import com.alexeyleping.crm.repository.UserRepository;
-import com.alexeyleping.crm.repository.UserRoleRepository;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,12 +14,10 @@ import java.util.*;
 
 @Service @Transactional
 public class UserService implements UserDetailsService {
-    private final UserRepository userRepository;
-    private final UserRoleRepository userRoleRepository ;
+    private  final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository, UserRoleRepository  userRoleRepository ) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userRoleRepository  = userRoleRepository;
     }
 
     public ReturnUserDto getUser(Long id){
@@ -70,29 +65,19 @@ public class UserService implements UserDetailsService {
         return "OK. OBJECT DELETE.";
     }
 
-    public void addRoleToUser(String login, String roleName){
-        AppUser appUser = userRepository.findByLogin(login);
-        UserRole userRole = userRoleRepository.findByRole(roleName);
-        appUser.getRoles().add(userRole);
+    public AppUser getByLogin(String login){
+        return userRepository.findByLogin(login);
     }
-
-    public void saveRole(UserRole userRole){
-        userRoleRepository.save(userRole);
-    }
-
     public List<AppUser> getAll() {
         return userRepository.findAll();
     }
-
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser = userRepository.findByLogin(username);
-        if (username == null){
-            throw new UsernameNotFoundException("Not found username!");
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        AppUser u = getByLogin(login);
+        if (Objects.isNull(u)) {
+            throw new UsernameNotFoundException(String.format("User %s is not found", login));
         }
-        Collection<SimpleGrantedAuthority>authorities=new ArrayList<>();
-        appUser.getRoles().forEach(userRole ->
-         authorities.add(new SimpleGrantedAuthority(userRole.getRole())));
-        return new org.springframework.security.core.userdetails.User(appUser.getLogin(), appUser.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(u.getLogin(), u.getPassword(), true, true, true, true, new HashSet<>());
     }
+
 }
