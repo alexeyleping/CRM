@@ -1,4 +1,4 @@
-package com.alexeyleping.crm.frontend;
+package com.alexeyleping.crm.filter;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

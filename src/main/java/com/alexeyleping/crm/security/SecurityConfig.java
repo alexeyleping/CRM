@@ -1,6 +1,6 @@
 package com.alexeyleping.crm.security;
 
-import com.alexeyleping.crm.frontend.AuthorizationFilter;
+import com.alexeyleping.crm.filter.AuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
