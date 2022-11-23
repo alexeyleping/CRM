@@ -7,6 +7,7 @@ import com.alexeyleping.crm.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,9 +16,11 @@ import java.util.*;
 @Service @Transactional
 public class UserService implements UserDetailsService {
     private  final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public ReturnUserDto getUser(Long id){
@@ -37,6 +40,7 @@ public class UserService implements UserDetailsService {
         appUser.setPhoneNumber(userDto.getPhoneNumber());
         Date timeStamp = Calendar.getInstance().getTime();
         appUser.setDateOfCreationUser(timeStamp);
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         userRepository.save(appUser);
         return "200 OK";
     }
@@ -80,4 +84,7 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(u.getLogin(), u.getPassword(), true, true, true, true, new HashSet<>());
     }
 
+    public void addRoleToUser(String roleName, String login) {
+
+    }
 }

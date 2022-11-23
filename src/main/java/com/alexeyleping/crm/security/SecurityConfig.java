@@ -1,5 +1,6 @@
 package com.alexeyleping.crm.security;
 
+import com.alexeyleping.crm.filter.AuthenticationFilter;
 import com.alexeyleping.crm.filter.AuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration @EnableWebSecurity
@@ -33,8 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().anyRequest().permitAll();
-        http.addFilter(new AuthorizationFilter(authenticationManagerBean()));
+        http.authorizeRequests().antMatchers(GET, "/token/refresh/**").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/application/**").hasAnyAuthority("ROLE_USER");
+        http.authorizeRequests().anyRequest().authenticated();
+        http.addFilter(new AuthenticationFilter(authenticationManagerBean()));
+        http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
