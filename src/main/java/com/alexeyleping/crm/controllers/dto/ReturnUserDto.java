@@ -1,6 +1,10 @@
 package com.alexeyleping.crm.controllers.dto;
 
+import com.alexeyleping.crm.entity.AppUser;
+
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 public class ReturnUserDto {
     Long id;
@@ -12,7 +16,7 @@ public class ReturnUserDto {
     String city;
     String country;
     String phoneNumber;
-    String role;
+    Collection<ReturnUserDto> role;
 
     public ReturnUserDto() {
     }
@@ -89,11 +93,10 @@ public class ReturnUserDto {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getRole() {
+    public Collection<ReturnUserDto> getRole() {
         return role;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRole(List<AppUser> all) {
     }
 }

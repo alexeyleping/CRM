@@ -3,6 +3,7 @@ package com.alexeyleping.crm.service;
 import com.alexeyleping.crm.controllers.dto.ReturnUserDto;
 import com.alexeyleping.crm.controllers.dto.UserDto;
 import com.alexeyleping.crm.entity.AppUser;
+import com.alexeyleping.crm.entity.Role;
 import com.alexeyleping.crm.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -72,9 +73,14 @@ public class UserService implements UserDetailsService {
     public AppUser getByLogin(String login){
         return userRepository.findByLogin(login);
     }
-    public List<AppUser> getAll() {
-        return userRepository.findAll();
+    public ReturnUserDto getAll() {
+       ReturnUserDto returnUserDtos = new ReturnUserDto();
+        returnUserDtos.setRole(userRepository.findAll());
+        return returnUserDtos;
     }
+
+
+
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         AppUser u = getByLogin(login);
@@ -84,7 +90,10 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(u.getLogin(), u.getPassword(), true, true, true, true, new HashSet<>());
     }
 
-    public void addRoleToUser(String roleName, String login) {
+    public AppUser addRoleToUser(Collection<Role> roleName, String login) {
+        AppUser appUser = userRepository.findByLogin(login);
+        appUser.setRoles(roleName);
+        return appUser;
 
     }
 }

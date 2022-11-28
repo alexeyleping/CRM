@@ -3,7 +3,7 @@ package com.alexeyleping.crm.controllers;
 import com.alexeyleping.crm.controllers.dto.ReturnUserDto;
 import com.alexeyleping.crm.controllers.dto.UserDto;
 import com.alexeyleping.crm.entity.AppUser;
-import com.alexeyleping.crm.entity.UserRole;
+import com.alexeyleping.crm.entity.Role;
 import com.alexeyleping.crm.service.UserService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -54,12 +54,12 @@ public class UserController {
     }
 
     @GetMapping(path = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<AppUser> getAll() {
+    public @ResponseBody ReturnUserDto getAll() {
         return userService.getAll();
     }
 
     /*@PostMapping("/role/save")
-    public void saveRole(UserRole role){
+    public void saveRole(Role role){
         userService.saveRole(role);
     }
     */
@@ -79,7 +79,7 @@ public class UserController {
                         .withSubject(appUser.getLogin())
                         .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
                         .withIssuer(request.getRequestURL().toString())
-                        .withClaim("roles", appUser.getRoles().stream().map(UserRole::getRole).collect(Collectors.toList()))
+                        .withClaim("roles", appUser.getRoles().stream().map(Role::getRole).collect(Collectors.toList()))
                         .sign(algorithm);
             } catch (Exception e) {
                 response.setHeader("error", e.getMessage());

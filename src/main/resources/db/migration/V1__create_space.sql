@@ -2,7 +2,7 @@ CREATE TABLE customers
 (
     id SERIAL PRIMARY KEY,
     name text,
-    dateOfCreationCustomer date,
+    creatTime timestamp,
     dateOfChangeCustomer date,
     email text,
     address text,
@@ -16,7 +16,7 @@ CREATE TABLE users
     name text,
     login text,
     password text,
-    dateOfCreationUser date,
+    creatTime timestamp,
     dateOfChangeUser date,
     email text,
     address text,
@@ -39,16 +39,16 @@ CREATE TABLE applications
     users_id integer references users(id),
     customers_id integer references customers(id)
 );
-CREATE TABLE userrole
+CREATE TABLE role
 (
     id SERIAL PRIMARY KEY,
     name text
 );
-CREATE TABLE users_userrole
+CREATE TABLE user_role
 (
     users_id bigserial references users (id) not null,
-    userrole_id bigserial references userrole (id) not null,
-    constraint users_userrole_pkey primary key (users_id, userrole_id)
+    role_id bigserial references role (id) not null,
+    constraint user_role_pkey primary key (users_id, role_id)
 );
 
 

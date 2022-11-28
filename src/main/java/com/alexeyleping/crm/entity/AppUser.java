@@ -45,12 +45,12 @@ public class AppUser {
     private String phoneNumber;
 
     @ManyToMany(fetch = EAGER)
-    private Collection<UserRole> roles = new ArrayList<>();
+    private Collection<Role> roles = new ArrayList<>();
 
     public AppUser() {
     }
 
-    public AppUser(int id, String login, String password, String name, Date dateOfCreationUser, Date dateOfChangeUser, String email, String address, String city, String country, String phoneNumber, Collection<UserRole> roles) {
+    public AppUser(int id, String login, String password, String name, Date dateOfCreationUser, Date dateOfChangeUser, String email, String address, String city, String country, String phoneNumber, Collection<Role> roles) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -66,11 +66,11 @@ public class AppUser {
     }
 
 
-    public Collection<UserRole> getRoles() {
+    public Collection<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<UserRole> roles) {
+    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
 
