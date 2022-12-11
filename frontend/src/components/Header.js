@@ -31,7 +31,7 @@ export default class Header extends Component {
                                 <Nav.Link href="/contacts">Contacts</Nav.Link>
                                 <Nav.Link href="/about">About Us</Nav.Link>
                             </Nav>
-                            <Form>
+                            <Form className="ms-auto me-right">
                                 <FormControl
                                     type = "text"
                                     placeholder="Search"
