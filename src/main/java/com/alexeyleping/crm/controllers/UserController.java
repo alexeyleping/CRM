@@ -66,9 +66,9 @@ public class UserController {
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
-        if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+        if(authorizationHeader != null) {
             try {
-                String refreshToken = authorizationHeader.substring("Bearer ".length());
+                String refreshToken = authorizationHeader;
                 Algorithm algorithm = Algorithm.HMAC256("secret".getBytes(StandardCharsets.UTF_8));
                 JWTVerifier jwtVerifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(refreshToken);
