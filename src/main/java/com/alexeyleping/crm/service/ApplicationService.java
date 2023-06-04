@@ -8,9 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ApplicationService {
@@ -21,49 +21,49 @@ public class ApplicationService {
         this.applicationRepository = applicationRepository;
     }
 
-    public ReturnApplicationDto getApplication(Long id){
+    public ReturnApplicationDto getApplication(UUID id) {
         Optional<Application> application = applicationRepository.findById(id);
-        ReturnApplicationDto returnApplicationDto = new ReturnApplicationDto();
-        returnApplicationDto.setId(application.get().getId());
-        returnApplicationDto.setApplicationType(application.get().getApplicationType());
-        returnApplicationDto.setCreator(application.get().getCreator());
-        returnApplicationDto.setDateChanged(application.get().getDateChanged());
-        returnApplicationDto.setDateCreated(application.get().getDateCreated());
-        returnApplicationDto.setDescription(application.get().getOwner());
-        returnApplicationDto.setPrice(application.get().getPrice());
+        ReturnApplicationDto returnApplicationDto = new ReturnApplicationDto(
+                application.get().getId(),
+                application.get().getNumber(),
+                application.get().getCreator(),
+                application.get().getOwner(),
+                application.get().getApplicationType(),
+                application.get().getDescription(),
+                application.get().getCreate(),
+                application.get().getChange(),
+                application.get().getPrice());
         return returnApplicationDto;
     }
 
-    public String createApplication(ApplicationDto applicationDto){
+    public String createApplication(ApplicationDto applicationDto) {
         Application application = new Application();
-        application.setApplicationType(applicationDto.getApplicationType());
-        application.setCreator(applicationDto.getCreator());
-        application.setDateChanged(applicationDto.getDateChanged());
-        application.setDescription(applicationDto.getDescription());
-        application.setOwner(applicationDto.getOwner());
-        application.setPrice(applicationDto.getPrice());
-        Date timeStamp = Calendar.getInstance().getTime();
-        application.setDateCreated(timeStamp);
+        application.setApplicationType(applicationDto.applicationType());
+        application.setCreator(applicationDto.creator());
+        application.setChange(applicationDto.change());
+        application.setDescription(applicationDto.description());
+        application.setOwner(applicationDto.owner());
+        application.setPrice(applicationDto.price());
+        application.setCreate(LocalDate.now());
         applicationRepository.save(application);
         return "200 OK";
     }
 
-    public String updateApplication(ApplicationDto applicationDto){
-        Application application = applicationRepository.getReferenceById(applicationDto.getId());
-        if(applicationDto.getApplicationType() != null)
-            application.setApplicationType(applicationDto.getApplicationType());
-        if(applicationDto.getDescription() != null)
-            application.setDescription(applicationDto.getDescription());
-        if(applicationDto.getOwner() != null)
-            application.setOwner(applicationDto.getOwner());
-        if(application.getPrice() != applicationDto.getPrice())
-            application.setPrice(applicationDto.getPrice());
-        Date timeStamp = Calendar.getInstance().getTime();
-        application.setDateChanged(timeStamp);
+    public String updateApplication(ApplicationDto applicationDto) {
+        Application application = applicationRepository.getReferenceById(applicationDto.id());
+        if (applicationDto.applicationType() != null)
+            application.setApplicationType(applicationDto.applicationType());
+        if (applicationDto.description() != null)
+            application.setDescription(applicationDto.description());
+        if (applicationDto.owner() != null)
+            application.setOwner(applicationDto.owner());
+        if (application.getPrice() != applicationDto.price())
+            application.setPrice(applicationDto.price());
+        application.setChange(LocalDate.now());
         return "OK. OBJECT UPDATE.";
     }
 
-    public String deleteApplication(Long id){
+    public String deleteApplication(UUID id) {
         applicationRepository.deleteById(id);
         return "OK. OBJECT DELETE.";
     }

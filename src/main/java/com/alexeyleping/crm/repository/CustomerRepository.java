@@ -3,5 +3,7 @@ package com.alexeyleping.crm.repository;
 import com.alexeyleping.crm.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+import java.util.UUID;
+
+public interface CustomerRepository extends JpaRepository<Customer, UUID> {
 }

@@ -6,6 +6,8 @@ import com.alexeyleping.crm.controllers.dto.ReturnCustomerDto;
 import com.alexeyleping.crm.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
@@ -16,7 +18,7 @@ public class CustomerController {
     }
 
     @GetMapping("/getCustomerId{id}")
-    public ReturnCustomerDto getCustomer(@PathVariable Long id) {
+    public ReturnCustomerDto getCustomer(@PathVariable UUID id) {
         return customerService.getCustomer(id);
     }
 
@@ -30,7 +32,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteCustomer(@PathVariable Long id) {
+    public String deleteCustomer(@PathVariable UUID id) {
         return customerService.deleteCustomer(id);
     }
 }

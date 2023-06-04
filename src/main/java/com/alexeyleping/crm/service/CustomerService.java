@@ -6,9 +6,9 @@ import com.alexeyleping.crm.entity.Customer;
 import com.alexeyleping.crm.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CustomerService {
@@ -17,47 +17,55 @@ public class CustomerService {
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
-    public ReturnCustomerDto getCustomer(Long id){
+    public ReturnCustomerDto getCustomer(UUID id){
         Optional<Customer> customer = customerRepository.findById(id);
-        ReturnCustomerDto returnCustomerDto = new ReturnCustomerDto();
-        returnCustomerDto.setName(customer.get().getName());
+        ReturnCustomerDto returnCustomerDto = new ReturnCustomerDto(
+                customer.get().getId(),
+                customer.get().getName(),
+                customer.get().getCreate(),
+                customer.get().getChange(),
+                customer.get().getEmail(),
+                customer.get().getAddress(),
+                customer.get().getCity(),
+                customer.get().getCountry(),
+                customer.get().getPhone());
+        returnCustomerDto.name();
         return returnCustomerDto;
     }
 
     public String createCustomer(CustomerDto customerDto){
         Customer customer = new Customer();
-        customer.setName(customerDto.getName());
-        customer.setAddress(customerDto.getAddress());
-        customer.setCity(customerDto.getCity());
-        customer.setCountry(customerDto.getCountry());
-        customer.setEmail(customerDto.getEmail());
-        customer.setPhoneNumber(customerDto.getPhoneNumber());
-        Date timeStamp = Calendar.getInstance().getTime();
-        customer.setDateOfCreationCustomer(timeStamp);
+        customer.setName(customerDto.name());
+        customer.setAddress(customerDto.address());
+        customer.setCity(customerDto.city());
+        customer.setCountry(customerDto.country());
+        customer.setEmail(customerDto.email());
+        customer.setPhone(customerDto.phone());
+        customer.setCreate(LocalDate.now());
         customerRepository.save(customer);
         return "200 OK";
     }
 
     public String updateCustomer(CustomerDto customerDto){
-        Customer customer = customerRepository.getReferenceById(customerDto.getId());
-        if(customerDto.getName() != null)
-            customer.setName(customerDto.getName());
-        if(customerDto.getDateOfChangeCustomer() != null)
-            customer.setDateOfChangeCustomer(customerDto.getDateOfChangeCustomer());
-        if(customerDto.getDateOfCreationCustomer() != null)
-            customer.setDateOfCreationCustomer(customerDto.getDateOfCreationCustomer());
-        if(customerDto.getAddress() != null)
-            customer.setAddress(customerDto.getAddress());
-        if(customerDto.getCity() != null)
-            customer.setCity(customerDto.getCity());
-        if(customerDto.getCountry() != null)
-            customer.setCountry(customerDto.getCountry());
-        if(customerDto.getPhoneNumber() != null)
-            customer.setPhoneNumber(customerDto.getPhoneNumber());
+        Customer customer = customerRepository.getReferenceById(customerDto.id());
+        if(customerDto.name() != null)
+            customer.setName(customerDto.name());
+        if(customerDto.change() != null)
+            customer.setChange(customerDto.change());
+        if(customerDto.create() != null)
+            customer.setCreate(customerDto.create());
+        if(customerDto.address() != null)
+            customer.setAddress(customerDto.address());
+        if(customerDto.city() != null)
+            customer.setCity(customerDto.city());
+        if(customerDto.country() != null)
+            customer.setCountry(customerDto.country());
+        if(customerDto.phone() != null)
+            customer.setPhone(customerDto.phone());
         return "OK. OBJECT UPDATE.";
     }
 
-    public String deleteCustomer(Long id){
+    public String deleteCustomer(UUID id){
         customerRepository.deleteById(id);
         return "OK. OBJECT DELETE.";
     }

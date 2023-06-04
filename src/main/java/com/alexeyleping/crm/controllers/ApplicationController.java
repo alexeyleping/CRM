@@ -7,6 +7,8 @@ import com.alexeyleping.crm.service.ApplicationService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/application")
 public class ApplicationController {
@@ -23,7 +25,7 @@ public class ApplicationController {
     }
 
     @GetMapping("/getApplicationId{id}")
-    public ReturnApplicationDto getApplication(@PathVariable Long id) {
+    public ReturnApplicationDto getApplication(@PathVariable UUID id) {
         return applicationService.getApplication(id);
     }
 
@@ -37,7 +39,7 @@ public class ApplicationController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteApplication(@PathVariable Long id) {
+    public String deleteApplication(@PathVariable UUID id) {
         return applicationService.deleteApplication(id);
     }
 }
