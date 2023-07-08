@@ -1,13 +1,12 @@
 package com.alexeyleping.crm.controllers;
 
-import com.alexeyleping.crm.controllers.dto.ReturnUserDto;
-import com.alexeyleping.crm.controllers.dto.UserDto;
+import com.alexeyleping.crm.controllers.dto.ReturnAppUserDto;
+import com.alexeyleping.crm.controllers.dto.AppUserDto;
 import com.alexeyleping.crm.entity.AppUser;
 import com.alexeyleping.crm.service.AppUserService;
-import org.springframework.data.domain.Page;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -22,18 +21,18 @@ public class UserController {
     }
 
     @GetMapping("/getUserId{id}")
-    public ReturnUserDto getUser(@PathVariable UUID id) {
+    public ReturnAppUserDto getUser(@PathVariable UUID id) {
         return appUserService.getUser(id);
     }
 
     @PostMapping("/create")
-    public String createUser(@RequestBody UserDto userDto) {
-        return appUserService.createUser(userDto);
+    public String createUser(@RequestBody AppUserDto appUserDto) {
+        return appUserService.createUser(appUserDto);
     }
 
     @PutMapping
-    public String updateUser(@RequestBody UserDto userDto) {
-        return appUserService.updateUser(userDto);
+    public String updateUser(@RequestBody AppUserDto appUserDto) {
+        return appUserService.updateUser(appUserDto);
     }
 
     @DeleteMapping("/{id}")
@@ -41,9 +40,8 @@ public class UserController {
         return appUserService.deleteUser(id);
     }
 
-    @GetMapping(path = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Page<AppUser> getAll(@RequestParam(value = "limit", defaultValue = "10") Integer limit,
-                                @RequestParam(value = "page", defaultValue = "0") Integer page) {
-        return appUserService.getAll(limit, page);
+    @GetMapping(path = "/users")
+    public List<AppUser> getAll() {
+        return appUserService.getAll();
     }
 }

@@ -1,52 +1,58 @@
 package com.alexeyleping.crm.service;
 
-import com.alexeyleping.crm.controllers.dto.ReturnUserDto;
-import com.alexeyleping.crm.controllers.dto.UserDto;
+import com.alexeyleping.crm.controllers.dto.ReturnAppUserDto;
+import com.alexeyleping.crm.controllers.dto.AppUserDto;
 import com.alexeyleping.crm.entity.AppUser;
 import com.alexeyleping.crm.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.Optional;
-import java.util.UUID;
 
+import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
+//implements UserDetailsService
 @Service
 @Transactional
-public class AppUserService implements UserDetailsService {
+public class AppUserService  {
+
     private  final UserRepository userRepository;
+
+    ModelMapper mapper = new ModelMapper();
 
     public AppUserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public ReturnUserDto getUser(UUID id){
-        Optional<AppUser> appUser = userRepository.findById(id);
-        ReturnUserDto returnUserDto = new ReturnUserDto(
-                appUser.get().getId(),
-                appUser.get().getUsername(),
-                appUser.get().getCreate(),
-                appUser.get().getChange(),
-                appUser.get().getEmail(),
-                appUser.get().getAddress(),
-                appUser.get().getCity(),
-                appUser.get().getCountry(),
-                appUser.get().getPhone());
-        return returnUserDto;
+    public ReturnAppUserDto getUser(UUID id){
+        AppUser appUser = userRepository.findById(id).get();
+        ReturnAppUserDto returnAppUserDto = mapper.map(appUser, ReturnAppUserDto.class);
+        return returnAppUserDto;
     }
 
-    public String createUser(UserDto userDto){
-        AppUser appUser = new AppUser();
+    public String createUser(AppUserDto appUserDto){
+        AppUser appUser = mapper.map(appUserDto, AppUser.class);
+        appUser.setCreate(LocalDate.now());
+        appUser.setChange(LocalDate.now());
         userRepository.save(appUser);
         return "200 OK";
     }
 
-    public String updateUser(UserDto userDto){
-        AppUser appUser = userRepository.getReferenceById(userDto.id());
+    public String updateUser(AppUserDto appUserDto){
+        AppUser appUser = userRepository.getReferenceById(appUserDto.id());
+        if(!appUserDto.address().equals(appUser.getAddress()))
+            appUser.setAddress(appUserDto.address());
+        if(!appUserDto.email().equals(appUser.getEmail()))
+            appUser.setEmail(appUserDto.email());
+        if(!appUserDto.city().equals(appUser.getCity()))
+            appUser.setCity(appUserDto.city());
+        if(!appUserDto.country().equals(appUser.getCountry()))
+            appUser.setCountry(appUserDto.country());
+        if(!appUserDto.phone().equals(appUser.getPhone()))
+            appUser.setPhone(appUserDto.phone());
         return "OK. OBJECT UPDATE.";
     }
 
@@ -56,12 +62,12 @@ public class AppUserService implements UserDetailsService {
     }
 
 
-    public Page<AppUser> getAll(Integer limit, Integer page) {
-        return  userRepository.findAll(PageRequest.of(page, limit));
+    public List<AppUser> getAll() {
+        return  userRepository.findAll();
     }
 
-    @Override
+   /* @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return (UserDetails) userRepository.findByUsername(username);
-    }
+    }*/
 }

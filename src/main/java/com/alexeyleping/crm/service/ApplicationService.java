@@ -4,60 +4,51 @@ import com.alexeyleping.crm.controllers.dto.ApplicationDto;
 import com.alexeyleping.crm.controllers.dto.ReturnApplicationDto;
 import com.alexeyleping.crm.entity.Application;
 import com.alexeyleping.crm.repository.ApplicationRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+
+import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class ApplicationService {
+
     private final ApplicationRepository applicationRepository;
 
+    ModelMapper mapper = new ModelMapper();
 
     public ApplicationService(ApplicationRepository applicationRepository) {
         this.applicationRepository = applicationRepository;
     }
 
     public ReturnApplicationDto getApplication(UUID id) {
-        Optional<Application> application = applicationRepository.findById(id);
-        ReturnApplicationDto returnApplicationDto = new ReturnApplicationDto(
-                application.get().getId(),
-                application.get().getNumber(),
-                application.get().getCreator(),
-                application.get().getOwner(),
-                application.get().getApplicationType(),
-                application.get().getDescription(),
-                application.get().getCreate(),
-                application.get().getChange(),
-                application.get().getPrice());
+        Application application = applicationRepository.findById(id).get();
+        ReturnApplicationDto returnApplicationDto = mapper.map(application, ReturnApplicationDto.class);
         return returnApplicationDto;
     }
 
     public String createApplication(ApplicationDto applicationDto) {
-        Application application = new Application();
-        application.setApplicationType(applicationDto.applicationType());
-        application.setCreator(applicationDto.creator());
-        application.setChange(applicationDto.change());
-        application.setDescription(applicationDto.description());
-        application.setOwner(applicationDto.owner());
-        application.setPrice(applicationDto.price());
+        Application application = mapper.map(applicationDto, Application.class);
         application.setCreate(LocalDate.now());
+        application.setChange(LocalDate.now());
         applicationRepository.save(application);
         return "200 OK";
     }
 
     public String updateApplication(ApplicationDto applicationDto) {
         Application application = applicationRepository.getReferenceById(applicationDto.id());
-        if (applicationDto.applicationType() != null)
+        if (!applicationDto.applicationType().equals(application.getApplicationType()))
             application.setApplicationType(applicationDto.applicationType());
-        if (applicationDto.description() != null)
+        if (!applicationDto.description().equals(application.getDescription()))
             application.setDescription(applicationDto.description());
-        if (applicationDto.owner() != null)
+        if (!applicationDto.owner().equals(application.getOwner()))
             application.setOwner(applicationDto.owner());
-        if (application.getPrice() != applicationDto.price())
+        if (application.getPrice() != application.getPrice())
             application.setPrice(applicationDto.price());
         application.setChange(LocalDate.now());
         return "OK. OBJECT UPDATE.";

@@ -2,7 +2,7 @@ CREATE TABLE if not exists customer
 (
     id   uuid primary key,
     name varchar(255),
-    create date,
+    created date,
     change date,
     email varchar(255),
     address varchar(255),
@@ -15,7 +15,7 @@ CREATE TABLE if not exists appuser
     id   uuid primary key,
     username varchar(255),
     password text,
-    create date,
+    created date,
     change date,
     email varchar(255),
     address varchar(255),
