@@ -5,8 +5,10 @@ import com.alexeyleping.crm.controllers.dto.ReturnApplicationDto;
 import com.alexeyleping.crm.entity.Application;
 import com.alexeyleping.crm.service.ApplicationService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,27 +21,28 @@ public class ApplicationController {
     }
 
     @GetMapping("/main")
-    public Page<Application> mainPage(@RequestParam(value = "limit", defaultValue = "10") Integer limit,
-                                      @RequestParam(value = "page", defaultValue = "0") Integer page) {
-        return applicationService.getAll(limit, page);
+    public List<Application> mainPage() {
+        return applicationService.findAll();
     }
 
-    @GetMapping("/getApplicationId{id}")
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public ReturnApplicationDto getApplication(@PathVariable UUID id) {
         return applicationService.getApplication(id);
     }
 
-    @PostMapping
-    public String createApplication (@RequestBody ApplicationDto applicationDto){
-        return  applicationService.createApplication(applicationDto);
+    @PostMapping("/create")
+    public void createApplication (@RequestBody ApplicationDto applicationDto){
+       applicationService.createApplication(applicationDto);
     }
-    @PutMapping
-    public String updateApplication(@RequestBody ApplicationDto applicationDto) {
-        return applicationService.updateApplication(applicationDto);
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateApplication(@PathVariable UUID id, @RequestBody ApplicationDto applicationDto) {
+        applicationService.updateApplication(id, applicationDto);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteApplication(@PathVariable UUID id) {
-        return applicationService.deleteApplication(id);
+    public void deleteApplication(@PathVariable UUID id) {
+        applicationService.deleteApplication(id);
     }
 }

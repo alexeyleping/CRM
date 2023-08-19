@@ -54,6 +54,9 @@ public class Application {
         this.price = price;
     }
 
+    public Application(Long number, String creator, String owner, ApplicationStatus applicationType, String description, float price) {
+    }
+
     public UUID getId() {
         return id;
     }
