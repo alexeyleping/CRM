@@ -42,7 +42,8 @@ public class Application {
     public Application() {
     }
 
-    public Application(UUID id, Long number, String creator, String owner, ApplicationStatus applicationType, String description, LocalDate create, LocalDate change, float price) {
+    public Application(UUID id, Long number, String creator, String owner, ApplicationStatus applicationType,
+                       String description, LocalDate create, LocalDate change, float price) {
         this.id = id;
         this.number = number;
         this.creator = creator;
@@ -54,8 +55,7 @@ public class Application {
         this.price = price;
     }
 
-    public Application(Long number, String creator, String owner, ApplicationStatus applicationType, String description, float price) {
-    }
+
 
     public UUID getId() {
         return id;

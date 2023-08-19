@@ -34,17 +34,20 @@ public class ApplicationService {
         return returnApplicationDto;
     }
 
-    public void createApplication(ApplicationDto applicationDto) {
-        Application application = new Application(applicationDto.number(), applicationDto.creator(), applicationDto.owner(), applicationDto.applicationType(),
-                applicationDto.description(), applicationDto.price());
-    /*    UUID uuid = UUID.randomUUID();
-        application.setId(uuid);*/
+    @Transactional
+    public ReturnApplicationDto createApplication(ApplicationDto applicationDto) {
+        Application application = new Application(applicationDto.id(), applicationDto.number(), applicationDto.creator(), applicationDto.owner(),
+                applicationDto.applicationType(), applicationDto.description(), applicationDto.create(), applicationDto.change(), applicationDto.price());
+        UUID uuid = UUID.randomUUID();
+        application.setId(uuid);
         application.setCreate(LocalDate.now());
         application.setChange(LocalDate.now());
         applicationRepository.save(application);
+        ReturnApplicationDto returnApplicationDto = new ReturnApplicationDto(application.getId(), application.getNumber(), application.getCreator(), application.getOwner(),
+                application.getApplicationType(), application.getDescription(), application.getCreate(), application.getChange(), application.getPrice());
+       return returnApplicationDto;
+
     }
-
-
 
     public void updateApplication(UUID id, ApplicationDto applicationDto) {
         Application application = applicationRepository.getReferenceById(id);

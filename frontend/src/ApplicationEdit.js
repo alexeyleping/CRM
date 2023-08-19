@@ -13,7 +13,7 @@ const ApplicationEdit = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        if (id !== 'new') {
+        if (id !== 'create') {
             fetch(`/application/${id}`)
                 .then(response => response.json())
                 .then(data => setApplication(data));

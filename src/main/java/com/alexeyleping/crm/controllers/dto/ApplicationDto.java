@@ -14,3 +14,4 @@ public record ApplicationDto(UUID id,
                              LocalDate create,
                              LocalDate change,
                              float price) { }
+
