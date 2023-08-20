@@ -51,6 +51,9 @@ public class AppUser {
     )
     private Set<AppRole> appRoles;
 
+    public AppUser() {
+    }
+
     public AppUser(UUID id, String username, String password, Date date, Date change, String email, String address, String city, String country, String phone, Set<AppRole> appRoles) {
     }
 
@@ -67,6 +70,8 @@ public class AppUser {
         this.phone = phone;
         this.appRoles = appRoles;
     }
+
+
 
     public UUID getId() {
         return id;
