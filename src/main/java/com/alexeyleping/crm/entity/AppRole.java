@@ -1,7 +1,6 @@
 package com.alexeyleping.crm.entity;
 
 
-
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
@@ -10,7 +9,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "approle")
-public class AppRole{
+public class AppRole {
     @Id
     @GeneratedValue(strategy = SEQUENCE)
     @Column(name = "id")

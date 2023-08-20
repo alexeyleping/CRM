@@ -3,6 +3,7 @@ package com.alexeyleping.crm.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -50,7 +51,7 @@ public class AppUser {
     )
     private Set<AppRole> appRoles;
 
-    public AppUser() {
+    public AppUser(UUID id, String username, String password, Date date, Date change, String email, String address, String city, String country, String phone, Set<AppRole> appRoles) {
     }
 
     public AppUser(UUID id, String username, String password, LocalDate create, LocalDate change, String email, String address, String city, String country, String phone, Set<AppRole> appRoles) {

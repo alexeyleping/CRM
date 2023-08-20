@@ -17,22 +17,22 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/getCustomerId{id}")
+    @GetMapping("/{id}")
     public ReturnCustomerDto getCustomer(@PathVariable UUID id) {
         return customerService.getCustomer(id);
     }
 
-    @PostMapping
-    public String createCustomer (@RequestBody CustomerDto customerDto){
-        return  customerService.createCustomer(customerDto);
+    @PostMapping("/create")
+    public void createCustomer (@RequestBody CustomerDto customerDto){
+        customerService.createCustomer(customerDto);
     }
-    @PutMapping
-    public String updateCustomer(@RequestBody CustomerDto customerDto) {
-        return customerService.updateCustomer(customerDto);
+    @PutMapping("/{id}")
+    public void updateCustomer(@RequestBody CustomerDto customerDto) {
+        customerService.updateCustomer(customerDto);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteCustomer(@PathVariable UUID id) {
-        return customerService.deleteCustomer(id);
+    public void deleteCustomer(@PathVariable UUID id) {
+       customerService.deleteCustomer(id);
     }
 }

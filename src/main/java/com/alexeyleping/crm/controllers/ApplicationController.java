@@ -4,7 +4,6 @@ import com.alexeyleping.crm.controllers.dto.ApplicationDto;
 import com.alexeyleping.crm.controllers.dto.ReturnApplicationDto;
 import com.alexeyleping.crm.entity.Application;
 import com.alexeyleping.crm.service.ApplicationService;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,21 +34,18 @@ public class ApplicationController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ReturnApplicationDto> createApplication (@RequestBody ApplicationDto applicationDto) throws URISyntaxException {
+    public ResponseEntity<ReturnApplicationDto> createApplication(@RequestBody ApplicationDto applicationDto) throws URISyntaxException {
         System.out.println(applicationDto);
         ReturnApplicationDto returnApplicationDto = applicationService.createApplication(applicationDto);
         return ResponseEntity.created(new URI("/application/main" + returnApplicationDto.id()))
                 .body(returnApplicationDto);
     }
 
-
-
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateApplication(@PathVariable UUID id, @RequestBody ApplicationDto applicationDto) {
         applicationService.updateApplication(id, applicationDto);
     }
-
     @DeleteMapping("/{id}")
     public void deleteApplication(@PathVariable UUID id) {
         applicationService.deleteApplication(id);

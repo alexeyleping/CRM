@@ -55,7 +55,6 @@ public class Application {
     }
 
 
-
     public UUID getId() {
         return id;
     }

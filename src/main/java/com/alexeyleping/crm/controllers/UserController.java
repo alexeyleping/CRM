@@ -20,27 +20,27 @@ public class UserController {
         this.appUserService = appUserService;
     }
 
-    @GetMapping("/getUserId{id}")
+    @GetMapping("/{id}")
     public ReturnAppUserDto getUser(@PathVariable UUID id) {
         return appUserService.getUser(id);
     }
 
     @PostMapping("/create")
-    public String createUser(@RequestBody AppUserDto appUserDto) {
-        return appUserService.createUser(appUserDto);
+    public void createUser(@RequestBody AppUserDto appUserDto) {
+        appUserService.createUser(appUserDto);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public String updateUser(@RequestBody AppUserDto appUserDto) {
         return appUserService.updateUser(appUserDto);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable UUID id) {
-        return appUserService.deleteUser(id);
+    public void deleteUser(@PathVariable UUID id) {
+        appUserService.deleteUser(id);
     }
 
-    @GetMapping(path = "/users")
+    @GetMapping(path = "/all")
     public List<AppUser> getAll() {
         return appUserService.getAll();
     }

@@ -4,9 +4,6 @@ import com.alexeyleping.crm.controllers.dto.ApplicationDto;
 import com.alexeyleping.crm.controllers.dto.ReturnApplicationDto;
 import com.alexeyleping.crm.entity.Application;
 import com.alexeyleping.crm.repository.ApplicationRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 
@@ -45,7 +42,7 @@ public class ApplicationService {
         applicationRepository.save(application);
         ReturnApplicationDto returnApplicationDto = new ReturnApplicationDto(application.getId(), application.getNumber(), application.getCreator(), application.getOwner(),
                 application.getApplicationType(), application.getDescription(), application.getCreate(), application.getChange(), application.getPrice());
-       return returnApplicationDto;
+        return returnApplicationDto;
 
     }
 
