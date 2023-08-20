@@ -11,7 +11,6 @@ import java.util.UUID;
 public class Application {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private UUID id;
 
     @Column(name = "number")

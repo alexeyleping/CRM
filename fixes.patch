@@ -1,0 +1,93 @@
+diff --git a/README.md b/README.md
+index 6c45a4d..d7c1507 100644
+--- a/README.md
++++ b/README.md
+@@ -2,3 +2,13 @@
+ Hi!
+ In this project I am writing my CRM.
+ Java+Spring+Security+Flyway+Postgresql+Gradle+React
++
++# howto
++
++run DB:
++
++```docker run --name postgres-crm -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=12345 -e POSTGRES_DB=crm -d postgres```
++
++swagger:
++
++http://localhost:8080/swagger-ui/index.html
+\ No newline at end of file
+diff --git a/build.gradle b/build.gradle
+index ad5eacd..dc323c6 100644
+--- a/build.gradle
++++ b/build.gradle
+@@ -21,6 +21,9 @@ dependencies {
+     implementation group: 'com.auth0', name: 'java-jwt', version: '4.2.1'
+     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+     runtimeOnly 'org.postgresql:postgresql'
++    implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
++
++
+     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+ }
+ 
+diff --git a/src/main/java/com/alexeyleping/crm/config/OpenApiConfig.java b/src/main/java/com/alexeyleping/crm/config/OpenApiConfig.java
+new file mode 100644
+index 0000000..b0229ac
+--- /dev/null
++++ b/src/main/java/com/alexeyleping/crm/config/OpenApiConfig.java
+@@ -0,0 +1,16 @@
++package com.alexeyleping.crm.config;
++
++import io.swagger.v3.oas.models.OpenAPI;
++import io.swagger.v3.oas.models.info.Info;
++import org.springframework.context.annotation.Bean;
++import org.springframework.context.annotation.Configuration;
++
++@Configuration
++public class OpenApiConfig {
++
++    @Bean
++    public OpenAPI customOpenAPI() {
++        return new OpenAPI()
++                .info(new Info().title("CRM API doc"));
++    }
++}
+diff --git a/src/main/java/com/alexeyleping/crm/entity/Application.java b/src/main/java/com/alexeyleping/crm/entity/Application.java
+index 0ce6efe..0ec6ccc 100644
+--- a/src/main/java/com/alexeyleping/crm/entity/Application.java
++++ b/src/main/java/com/alexeyleping/crm/entity/Application.java
+@@ -11,7 +11,6 @@ import java.util.UUID;
+ public class Application {
+     @Id
+     @Column(name = "id")
+-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+     private UUID id;
+ 
+     @Column(name = "number")
+diff --git a/src/main/java/com/alexeyleping/crm/repository/ApplicationRepository.java b/src/main/java/com/alexeyleping/crm/repository/ApplicationRepository.java
+index de43d79..3af1620 100644
+--- a/src/main/java/com/alexeyleping/crm/repository/ApplicationRepository.java
++++ b/src/main/java/com/alexeyleping/crm/repository/ApplicationRepository.java
+@@ -2,8 +2,10 @@ package com.alexeyleping.crm.repository;
+ 
+ import com.alexeyleping.crm.entity.Application;
+ import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.stereotype.Repository;
+ 
+ import java.util.UUID;
+ 
++@Repository
+ public interface ApplicationRepository extends JpaRepository<Application, UUID> {
+ }
+diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
+index 69b68f4..bd7d09e 100644
+--- a/src/main/resources/application.properties
++++ b/src/main/resources/application.properties
+@@ -3,5 +3,4 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/crm
+ spring.datasource.username=postgres
+ spring.datasource.password=12345
+ spring.jpa.hibernate.ddl-auto=none
+-spring.flyway.baselineOnMigrate = true
+-flyway.locations=src/main/resources/db/migration
++spring.flyway.locations=classpath:/db/migration
