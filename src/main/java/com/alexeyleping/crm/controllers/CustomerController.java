@@ -22,7 +22,7 @@ public class CustomerController {
         return customerService.getCustomer(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public void createCustomer (@RequestBody CustomerDto customerDto){
         customerService.createCustomer(customerDto);
     }

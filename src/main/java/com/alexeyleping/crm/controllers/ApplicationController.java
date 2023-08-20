@@ -33,7 +33,7 @@ public class ApplicationController {
         return applicationService.getApplication(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<ReturnApplicationDto> createApplication(@RequestBody ApplicationDto applicationDto) throws URISyntaxException {
         System.out.println(applicationDto);
         ReturnApplicationDto returnApplicationDto = applicationService.createApplication(applicationDto);

@@ -25,7 +25,7 @@ public class UserController {
         return appUserService.getUser(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public void createUser(@RequestBody AppUserDto appUserDto) {
         appUserService.createUser(appUserDto);
     }
